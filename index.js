@@ -10,7 +10,7 @@ c.height = window.innerHeight * 0.87;
 c.width = window.innerWidth * 0.85;
 
 let player = {
-    x: 10,
+    x: 0,
     y: 10,
     umbrella: false
 };
@@ -18,16 +18,30 @@ let player = {
 window.addEventListener("keydown", function (e) {
     switch (e.key) {
         case "ArrowLeft":
-            player.x -= 25;
+            if (player.x <= 0)
+                player.x = 0
+            else 
+                player.x -= 25;
             break;
         case "ArrowRight":
-            player.x += 25;
+            console.log(c.width);
+            if (player.x >= c.width - 82)
+                player.x = c.width - 62
+            else 
+                player.x += 25;
             break;
         case "ArrowUp":
-            player.umbrella = true;
+            if (player.umbrella == false)
+                player.umbrella = true
+            else if (player.umbrella == true)
+                player.umbrella = false
             break;
         case "ArrowDown":
-            player.umbrella = false;
+            if (player.umbrella == true)
+                player.umbrella = false
+            else if (player.umbrella == false)
+                player.umbrella = true
+            break;
             break;
     }
 });
@@ -130,8 +144,7 @@ function animate() {
         if (score < 0 || array[ballData].y >= c.height) {
             array[ballData].y = -10000000;
             array[ballData].r = 0;
-            if (array[ballData].color != "red")
-                gameOver();
+            gameOver();
         }
     }
 }
@@ -140,4 +153,5 @@ function gameOver() {
     document.getElementById('endBox').style.display = 'block';
     document.getElementById('gamePage').style.opacity = '0.2';
     document.getElementById('score').innerHTML = score;
+    c.clearRect
 }
