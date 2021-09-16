@@ -18,11 +18,18 @@
         <p class="endText"> Your Score is :
             <span id="score"> </span>
         </p>
-        <a href="./index.html">
+        <a href="./">
             <button class="tryAgainBtn"> Try Again </button>
         </a>
     </div>
-    <script type="module" src="assets/js/index.js"></script>
+    <script type="module" src="./js/index.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('press', function(msg) {
+            console.log(msg)
+        });
+    </script>
 </body>
 
 </html>

@@ -7,12 +7,13 @@ const port = process.env.PORT || 3000;
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/start.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', (socket) => {
-  socket.on('press', msg => {
-    io.emit('sendFromServerKeyPressed', 'DIT KNOPJE IS INGEDRUK: '+msg);
+  socket.on('PraiseBingus', msg => {
+    io.emit('press', msg);
+   
   });
 });
 
