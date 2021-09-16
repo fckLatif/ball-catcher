@@ -1,0 +1,13 @@
+{
+  "name": "tetris",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {},
+  "dependencies": {
+    "socketio": "^1.0.0"
+  }, 
+  "scripts": {
+    "start": "node index.js"
+  }
+  
+}

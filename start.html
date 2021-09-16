@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    
+    
     <div class="startBox">
         <h1 class="startText"> Ball Catcher ! </h1>
         <p class="startText"> Fill the bucket with colors..catch the colorfull balls </p>
         <a href="./index.html">
             <button class="startBtn"> Start </button>
         </a>
+        <a href="./screen.html">SCREEN</a>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io(); // ERROR
+
+      document.addEventListener('keypress', function(e) {
+        var code = e.code;
+        var key = e.key;
+
+        socket.emit('press', key);
+      });
+    </script>
 </body>
 
 </html>
