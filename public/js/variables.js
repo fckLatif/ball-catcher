@@ -3,7 +3,7 @@ var v = {
     score: 0,
     y: 0,
     array: [],
-    dy1: 2.8,
+    ballSpeed: 0.5,
     moveSpeed: 30,
     firstPlayerX: 0,
     playerY: 10,

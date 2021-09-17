@@ -71,10 +71,10 @@ for (let scoreCount = 0; scoreCount < 1000; scoreCount++) {
     var x = Math.random() * (c.width - 10) + 10;
     var r = Math.random() * 5 + 10;
     var randColor = selectColor[Math.floor(Math.random() * (selectColor.length))];
-    var dy = v.dy1;
+    var dy = v.ballSpeed;
     v.array.push(new Ball(x, v.y, r, randColor, dy));
     if (scoreCount % 100 == 0 && scoreCount != 0) {
-        v.dy1 += 0.1;
+        v.ballSpeed += 0.2;
     }
 }
 
