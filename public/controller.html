@@ -7,16 +7,25 @@
     <title>CONTROLLERTJE</title>
 </head>
 <body>
-    <button id="btn">dsad</button>
+    <button class="arrow" id="up">ArrowUp</button>
+    <button class="arrow" id="down">ArrowDown</button>
+    <button class="arrow" id="left">ArrowLeft</button>
+    <button class="arrow" id="right">ArrowRight</button>
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
       var socket = io();
-      var btn = document.getElementById("btn");
+      const arrowInput = document.getElementsByClassName("arrow")
+      const arrowUp = document.getElementById("up")
+      const arrowDown = document.getElementById("down")
+      const arrowLeft = document.getElementById("left")
+      const arrowRight = document.getElementById("right")
 
-      btn.addEventListener('click', function(e) {
-        socket.emit('PraiseBingus', "button1");
-      });
+      Array.from(arrowInput).forEach((element) => {
+        element.addEventListener('click', (el) => {
+          socket.emit('PraiseBingus', element.id)
+        })
+      })
     </script>
 </body>
 </html>

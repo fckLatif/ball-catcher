@@ -1,6 +1,7 @@
 import {
     v
 } from './variables.js'
+var socket = io();
 
 window.c = document.getElementById("canvas")
 window.ctx = c.getContext("2d")
@@ -10,11 +11,6 @@ window.firstPlayer = {
     x: v.firstPlayerX,
     y: v.playerY,
     umbrella: v.firstPlayerUmbrellaState
-}
-window.secondPlayer = {
-    x: v.secondPlayerX,
-    y: v.playerY,
-    umbrella: v.secondPlayerUmbrellaState
 }
 
 import Ball from './Ball.js'
@@ -30,6 +26,7 @@ function collisionCheck(player) {
         player.x = c.width - 62
 }
 
+
 function moveLeft(player) {
     player.x -= v.moveSpeed;
 }
@@ -42,20 +39,23 @@ function useUmbrella(player, state) {
     player.umbrella = state
 }
 
-window.addEventListener("keydown", function (e) {
-    switch (e.key) {
-        case "ArrowLeft":
+
+
+socket.on('press', function(msg) {
+    switch (msg) {
+        case "left":
             moveLeft(firstPlayer)
             collisionCheck(firstPlayer)
+            
             break;
-        case "ArrowRight":
+        case "right":
             moveRight(firstPlayer)
             collisionCheck(firstPlayer)
             break;
-        case "ArrowUp":
+        case "up":
             useUmbrella(firstPlayer, true)
             break;
-        case "ArrowDown":
+        case "down":
             useUmbrella(firstPlayer, false)
             break;
     }
@@ -64,11 +64,10 @@ window.addEventListener("keydown", function (e) {
 let selectColor = ["green", "green", "green", "red"];
 
 let player1 = new Player(c.width / 2 - 30, c.height - 50, "player1.png", "umbrella1.png");
-let player2 = new Player(c.width / 2 - 30, c.height - 50, "player1.png", "umbrella1.png");
 
 
 for (let scoreCount = 0; scoreCount < 1000; scoreCount++) {
-    v.y -= 300;
+    v.y -= 1000;
     var x = Math.random() * (c.width - 10) + 10;
     var r = Math.random() * 5 + 10;
     var randColor = selectColor[Math.floor(Math.random() * (selectColor.length))];
@@ -101,7 +100,6 @@ function animate() {
     ctx.strokeStyle = 'lightgrey';
     ctx.strokeText('Catch The Ball', c.width / 2 - c.width / 4, 290);
     usePlayer(player1, firstPlayer)
-    usePlayer(player2, secondPlayer)
 
     for (let ballData = 0; ballData < v.array.length; ballData++) {
         v.array[ballData].update();
@@ -109,17 +107,14 @@ function animate() {
     for (var ballData = 0; ballData < v.array.length; ballData++) {
         v.cond = (player1.y - 40) - (v.array[ballData].y + v.array[ballData].r) <= 0 &&
             (v.array[ballData].x - v.array[ballData].r + 2) >= (player1.x) &&
-            (v.array[ballData].x + v.array[ballData].r - 2) <= (player1.x3) ||
-            (player2.y - 40) - (v.array[ballData].y + v.array[ballData].r) <= 0 &&
-            (v.array[ballData].x - v.array[ballData].r + 2) >= (player2.x) &&
-            (v.array[ballData].x + v.array[ballData].r - 2) <= (player2.x3)
+            (v.array[ballData].x + v.array[ballData].r - 2) <= (player1.x3)
         if (v.cond) {
             v.array[ballData].y = -10000000;
             v.array[ballData].r = 0;
             player1.color = v.array[ballData].color;
-            if (player1.color == "red" && firstPlayer.umbrella == false || player2.color == "red" && secondPlayer.umbrella)
+            if (player1.color == "red" && firstPlayer.umbrella == false)
                 v.score -= 2
-            if (player1.color == "green" && firstPlayer.umbrella == true || player2.color == "green" && secondPlayer.umbrella)
+            if (player1.color == "green" && firstPlayer.umbrella == true)
                 v.score -= 2
             v.score++;
         }

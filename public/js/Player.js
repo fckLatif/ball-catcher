@@ -12,8 +12,6 @@ export class Player {
         ctx.drawImage(model, this.x + 3, this.y - 46)
         if (firstPlayer.umbrella == true)
             ctx.drawImage(umbrellaModel, this.x - 6, this.y - 60)
-        if (secondPlayer.umbrella == true)
-            ctx.drawImage(umbrellaModel, this.x - 6, this.y - 60)
     }
 }
 
