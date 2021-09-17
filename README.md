@@ -1,6 +1,2 @@
 # catch da ball
- - Player 2
- - Mobile controller
- - Styling
- - Name input
- - Database support
+om de server te starten, open een terminal en doe `node index.js`
